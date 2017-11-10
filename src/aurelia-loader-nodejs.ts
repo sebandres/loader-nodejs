@@ -14,7 +14,7 @@ export function TextHandler(filePath: string) {
 }
 
 export const Options = {
-  relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || undefined
+  relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || path.resolve()
 }
 
 export const ExtensionHandlers = {
