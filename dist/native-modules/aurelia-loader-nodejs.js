@@ -1,19 +1,24 @@
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
-    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -51,7 +56,7 @@ export function TextHandler(filePath) {
     });
 }
 export var Options = {
-    relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || undefined
+    relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || path.resolve()
 };
 export var ExtensionHandlers = {
     '.css': TextHandler,
@@ -72,7 +77,7 @@ export function advancedRequire(filePath) {
 /**
 * An implementation of the TemplateLoader interface implemented with text-based loading.
 */
-export var TextTemplateLoader = (function () {
+var TextTemplateLoader = /** @class */ (function () {
     function TextTemplateLoader() {
     }
     /**
@@ -97,6 +102,7 @@ export var TextTemplateLoader = (function () {
     };
     return TextTemplateLoader;
 }());
+export { TextTemplateLoader };
 export function ensureOriginOnExports(moduleExports, moduleId) {
     var target = moduleExports;
     var key;
@@ -118,7 +124,7 @@ export function ensureOriginOnExports(moduleExports, moduleId) {
 /**
 * A default implementation of the Loader abstraction which works with webpack (extended common-js style).
 */
-export var NodeJsLoader = (function (_super) {
+var NodeJsLoader = /** @class */ (function (_super) {
     __extends(NodeJsLoader, _super);
     function NodeJsLoader() {
         var _this = _super.call(this) || this;
@@ -148,8 +154,7 @@ export var NodeJsLoader = (function (_super) {
                         if (modulePath[0] === '.' && Options.relativeToDir) {
                             modulePath = path.resolve(Options.relativeToDir, modulePath);
                         }
-                        if (!loaderPlugin)
-                            return [3 /*break*/, 2];
+                        if (!loaderPlugin) return [3 /*break*/, 2];
                         plugin = this.loaderPlugins[loaderPlugin];
                         if (!plugin) {
                             throw new Error("Plugin " + loaderPlugin + " is not registered in the loader.");
@@ -181,8 +186,7 @@ export var NodeJsLoader = (function (_super) {
                     case 6: return [2 /*return*/, _a.sent()];
                     case 7:
                         e_1 = _a.sent();
-                        if (!!path.isAbsolute(modulePath))
-                            return [3 /*break*/, 9];
+                        if (!!path.isAbsolute(modulePath)) return [3 /*break*/, 9];
                         modulePath = path.resolve(Options.relativeToDir, modulePath);
                         return [4 /*yield*/, advancedRequire(modulePath)];
                     case 8: return [2 /*return*/, _a.sent()];
@@ -310,4 +314,5 @@ export var NodeJsLoader = (function (_super) {
     };
     return NodeJsLoader;
 }(Loader));
+export { NodeJsLoader };
 PLATFORM.Loader = NodeJsLoader;

@@ -3,7 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
 import { Origin } from 'aurelia-metadata';
@@ -17,7 +17,7 @@ export function TextHandler(filePath) {
     return new Promise((resolve, reject) => fs.readFile(filePath, 'utf-8', (err, text) => err ? reject(err) : resolve(text)));
 }
 export const Options = {
-    relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || undefined
+    relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || path.resolve()
 };
 export const ExtensionHandlers = {
     '.css': TextHandler,

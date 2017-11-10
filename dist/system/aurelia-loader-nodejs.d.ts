@@ -1,11 +1,10 @@
-/// <reference types="lodash" />
 import { Loader, TemplateRegistryEntry, LoaderPlugin } from 'aurelia-loader';
 export declare type LoaderPlugin = {
     fetch: (address: string) => Promise<TemplateRegistryEntry> | TemplateRegistryEntry;
 };
 export declare function TextHandler(filePath: string): Promise<any>;
 export declare const Options: {
-    relativeToDir: string | undefined;
+    relativeToDir: string;
 };
 export declare const ExtensionHandlers: {
     [extension: string]: (filePath: string) => Promise<any>;

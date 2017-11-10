@@ -1,21 +1,26 @@
 System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "fs", "debug"], function (exports_1, context_1) {
     "use strict";
-    var __extends = (this && this.__extends) || function (d, b) {
-        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
+    var __extends = (this && this.__extends) || (function () {
+        var extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return function (d, b) {
+            extendStatics(d, b);
+            function __() { this.constructor = d; }
+            d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+        };
+    })();
     var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
         return new (P || (P = Promise))(function (resolve, reject) {
             function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
             function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
             function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-            step((generator = generator.apply(thisArg, _arguments)).next());
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
     var __generator = (this && this.__generator) || function (thisArg, body) {
-        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
-        return { next: verb(0), "throw": verb(1), "return": verb(2) };
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
         function verb(n) { return function (v) { return step([n, v]); }; }
         function step(op) {
             if (f) throw new TypeError("Generator is already executing.");
@@ -46,6 +51,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
             return fs.readFile(filePath, 'utf-8', function (err, text) { return err ? reject(err) : resolve(text); });
         });
     }
+    exports_1("TextHandler", TextHandler);
     function advancedRequire(filePath) {
         var extensionsWithHandlers = Object.keys(ExtensionHandlers);
         for (var _i = 0, extensionsWithHandlers_1 = extensionsWithHandlers; _i < extensionsWithHandlers_1.length; _i++) {
@@ -58,6 +64,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
         log("Requiring: " + filePath);
         return Promise.resolve(require(filePath));
     }
+    exports_1("advancedRequire", advancedRequire);
     function ensureOriginOnExports(moduleExports, moduleId) {
         var target = moduleExports;
         var key;
@@ -76,10 +83,8 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
         }
         return moduleExports;
     }
-    var aurelia_metadata_1, aurelia_loader_1, aurelia_pal_1, path, fs, debug, log, Options, ExtensionHandlers, TextTemplateLoader, NodeJsLoader;
-    exports_1("TextHandler", TextHandler);
-    exports_1("advancedRequire", advancedRequire);
     exports_1("ensureOriginOnExports", ensureOriginOnExports);
+    var aurelia_metadata_1, aurelia_loader_1, aurelia_pal_1, path, fs, debug, log, Options, ExtensionHandlers, TextTemplateLoader, NodeJsLoader;
     return {
         setters: [
             function (aurelia_metadata_1_1) {
@@ -104,7 +109,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
         execute: function () {
             log = debug('aurelia-loader-nodejs');
             exports_1("Options", Options = {
-                relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || undefined
+                relativeToDir: require.main && require.main.filename && path.dirname(require.main.filename) || path.resolve()
             });
             exports_1("ExtensionHandlers", ExtensionHandlers = {
                 '.css': TextHandler,
@@ -113,7 +118,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
             /**
             * An implementation of the TemplateLoader interface implemented with text-based loading.
             */
-            TextTemplateLoader = (function () {
+            TextTemplateLoader = /** @class */ (function () {
                 function TextTemplateLoader() {
                 }
                 /**
@@ -142,7 +147,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
             /**
             * A default implementation of the Loader abstraction which works with webpack (extended common-js style).
             */
-            NodeJsLoader = (function (_super) {
+            NodeJsLoader = /** @class */ (function (_super) {
                 __extends(NodeJsLoader, _super);
                 function NodeJsLoader() {
                     var _this = _super.call(this) || this;
@@ -172,8 +177,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
                                     if (modulePath[0] === '.' && Options.relativeToDir) {
                                         modulePath = path.resolve(Options.relativeToDir, modulePath);
                                     }
-                                    if (!loaderPlugin)
-                                        return [3 /*break*/, 2];
+                                    if (!loaderPlugin) return [3 /*break*/, 2];
                                     plugin = this.loaderPlugins[loaderPlugin];
                                     if (!plugin) {
                                         throw new Error("Plugin " + loaderPlugin + " is not registered in the loader.");
@@ -205,8 +209,7 @@ System.register(["aurelia-metadata", "aurelia-loader", "aurelia-pal", "path", "f
                                 case 6: return [2 /*return*/, _a.sent()];
                                 case 7:
                                     e_1 = _a.sent();
-                                    if (!!path.isAbsolute(modulePath))
-                                        return [3 /*break*/, 9];
+                                    if (!!path.isAbsolute(modulePath)) return [3 /*break*/, 9];
                                     modulePath = path.resolve(Options.relativeToDir, modulePath);
                                     return [4 /*yield*/, advancedRequire(modulePath)];
                                 case 8: return [2 /*return*/, _a.sent()];
